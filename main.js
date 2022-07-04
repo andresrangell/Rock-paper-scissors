@@ -1,16 +1,20 @@
-const choices = ['rock', 'paper', 'scissors']
+const choices = ['rock', 'paper', 'scissors'];
+const winners = [];
 
 
 function game(){
-    playRound();
+    for(let i = 0; i <= 5; i++){
+        playRound(i);   
+    }
+    logWins();
 }
 
-function playRound(){
+function playRound(round){
     const playerSelection = playerChoice();
     const computerSelection = computerChoice();
-    console.log(computerSelection);
     const winner = checkWinner(playerSelection, computerSelection);
-    console.log(winner);
+    winners.push(winner);
+    logRound(playerSelection, computerSelection, winner, round)
 
 }
 
@@ -25,6 +29,9 @@ function playerChoice(){
         input = prompt(
             'Type Rock, Paper, or Scissors. Spelling need to be exact, but capitalization doesnt matter'
         );
+        while (input == null) {
+            input = prompt('Type Rock, Paper, or Scissors')
+        }
         input = input.toLowerCase();
         check = validateInput(input);
     }
@@ -41,7 +48,6 @@ function validateInput(choice){
 }
 
 function checkWinner(choiceP, choiceC){
-    console.log(choiceP, choiceC)
     if(choiceP === choiceC){
         return 'Tie';
     } else if(
@@ -50,13 +56,29 @@ function checkWinner(choiceP, choiceC){
         (choiceP === 'scissors' && choiceC === 'paper')
     ) {
         return 'Player';
-    } else{
+    } else {
         return 'Computer'
     }
 }
 
+function logWins(){
+    let playerWins = winners.filter((item) => item == 'Player').length;
+    let computerWins = winners.filter((item) => item == 'Computer').length;
+    let ties = winners.filter((item) => item == 'Tie').length
+    console.log('Results:');
+    console.log('Player Wins:', playerWins);
+    console.log('Computer Wins:', computerWins);
+    console.log('Ties:', ties)
+}
 
-game();
+function logRound(playerChoice, computerChoice, winner, round) {
+    console.log('Round', round)
+    console.log('Player Choose:', playerChoice);
+    console.log('Computer Choose:', computerChoice);
+    console.log(winner, 'Won the round');
+    console.log('---------------------------')
+}
+
 
 
 
