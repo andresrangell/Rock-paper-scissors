@@ -17,8 +17,12 @@ function playerChoice(){
     }
     input = input.toLowerCase();
     let check = validateInput(input);
-    if(check == true){
-        console.log(input);
+    while(check == false){
+        input = prompt(
+            'Type Rock, Paper, or Scissors. Spelling need to be exact, but capitalization doesnt matter'
+        );
+        input = input.toLowerCase();
+        check = validateInput(input);
     }
 
     // console.log(input);
@@ -29,11 +33,7 @@ function computerChoice(){
 }
 
 function validateInput(choice){
-    if(choices.includes(choice)){
-        return true;
-    } else {
-        return false;
-    }
+    return (choices.includes(choice));
 }
 
 game();
